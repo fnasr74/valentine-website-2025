@@ -240,3 +240,34 @@ function setupMusicPlayer() {
         }
     });
 } 
+// === MOBILE TOUCH SUPPORT FOR NO BUTTON ===
+document.addEventListener("DOMContentLoaded", () => {
+const noBtn = document.getElementById("noBtn1");
+  if (!noBtn) return;
+
+  let tries = 0;
+  const maxTries = 6;
+
+  function moveNoMobile(e) {
+    e.preventDefault();
+    if (tries >= maxTries) return;
+    tries++;
+
+    const padding = 20;
+    const bw = noBtn.offsetWidth;
+    const bh = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - bw - padding;
+    const maxY = window.innerHeight - bh - padding;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+    noBtn.style.zIndex = 9999;
+  }
+
+  noBtn.addEventListener("touchstart", moveNoMobile, { passive: false });
+});
